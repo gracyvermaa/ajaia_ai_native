@@ -218,6 +218,7 @@ a { color: inherit; }
 .document-prose ul { list-style-type: disc; }
 .document-prose ol { list-style-type: decimal; }
 .document-prose li { padding-left: 4px; }
+.print-document-title { display: none; }
 .document-prose blockquote { border-left: 3px solid #d8e0fa; margin: 18px 0; padding-left: 17px; color: #727c8d; }
 .document-prose hr { border: 0; border-top: 1px solid #e8eaf0; margin: 22px 0; }
 .editor-readonly .document-prose { color: #555d6b; }
@@ -325,4 +326,54 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+@media print {
+  @page { margin: 0.75in; }
+  html, body, #root { min-width: 0; min-height: 0; background: #fff !important; }
+  .editor-shell { min-height: 0; display: block; background: #fff !important; }
+  .editor-topbar, .editor-context-row, .editor-alert, .editor-loading,
+  .format-toolbar, .editor-shell button, .editor-shell input, .share-modal {
+    display: none !important;
+  }
+  .print-document-title {
+    display: block;
+    margin: 0 0 24pt;
+    color: #000;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 700;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .editor-workspace { display: block; min-height: 0; }
+  .page-scroll { overflow: visible; padding: 0; }
+  .editor-page {
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .document-prose {
+    min-height: 0;
+    color: #000;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    font-synthesis: style;
+    overflow-wrap: anywhere;
+  }
+  .document-prose h1, .document-prose h2, .document-prose h3 {
+    color: #000;
+    break-after: avoid-page;
+  }
+  .document-prose p, .document-prose li { orphans: 3; widows: 3; }
+  .document-prose ul { list-style-type: disc; }
+  .document-prose ol { list-style-type: decimal; }
+  .document-prose li { break-inside: avoid; }
+  .document-prose strong, .document-prose b { font-weight: 700; }
+  .document-prose em, .document-prose i { font-style: italic; }
+  .document-prose u { text-decoration: underline; }
 }

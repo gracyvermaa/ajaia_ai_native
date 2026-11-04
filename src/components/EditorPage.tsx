@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import type { JSONContent } from '@tiptap/react'
-import { ArrowLeft, Check, ChevronDown, CloudOff, LoaderCircle, Pencil, Share2, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, Check, ChevronDown, CloudOff, LoaderCircle, Pencil, Printer, Share2, ShieldCheck } from 'lucide-react'
 import { getDocumentPeople, updateDocument } from '../lib/documents'
 import { validateDocumentTitle } from '../lib/documentUtils'
 import { logSupabaseFailure } from '../lib/supabaseErrors'
@@ -220,12 +220,14 @@ export function EditorPage({ document, user, onBack, onShareUpdate }: Props) {
         </div>
         <div className="editor-top-actions">
           <div className={`save-indicator ${saveState}`} role="status">{saveState === 'saving' ? <><span className="tiny-spinner" /> Saving...</> : saveState === 'failed' ? <><CloudOff size={15} /> Save failed</> : <><Check size={15} /> Saved</>}</div>
+          <button className="button button-secondary export-pdf-button" onClick={() => window.print()}><Printer size={16} /><span>Export as PDF</span></button>
           <button className="button button-secondary share-button" onClick={() => setShareOpen(true)}><Share2 size={16} /><span>Share</span></button>
           <span className="avatar">{(user.email ?? 'A').slice(0, 1).toUpperCase()}</span>
         </div>
       </header>
       {(permissionError || titleError || titleSaveError) && <div role="alert" className="editor-alert">{titleSaveError || titleError || permissionError}</div>}
       <div className="editor-context-row"><span><ShieldCheck size={14} /> Private to you and invited collaborators</span>{permission === 'viewer' && <span className="viewer-badge">View only</span>}</div>
+      <h1 className="print-document-title">{title}</h1>
       {permission === null ? <div className="editor-loading"><span className="spinner" />Verifying access...</div> : <RichTextEditor content={content} editable={canEdit} onChange={changeContent} />}
       {shareOpen && <ShareDialog document={document} userId={user.id} onClose={() => setShareOpen(false)} onShareUpdate={onShareUpdate} />}
     </main>

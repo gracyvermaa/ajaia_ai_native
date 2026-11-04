@@ -138,6 +138,18 @@ describe('EditorPage document title', () => {
     expect(screen.getByRole('button', { name: 'Edit document title' })).toHaveTextContent('Persistent title')
   })
 
+  it('prints the current document when Export as PDF is clicked', async () => {
+    const user = userEvent.setup()
+    const print = vi.spyOn(window, 'print').mockImplementation(() => undefined)
+    renderEditor()
+
+    await user.click(screen.getByRole('button', { name: 'Export as PDF' }))
+
+    expect(print).toHaveBeenCalledOnce()
+    expect(screen.getByRole('heading', { name: 'Untitled document' })).toHaveClass('print-document-title')
+    print.mockRestore()
+  })
+
   it('lets an authorized editor rename but keeps viewer titles non-editable', async () => {
     const editorUser: User = { ...owner, id: 'editor-1' }
     mocks.getDocumentPeople.mockResolvedValue([
