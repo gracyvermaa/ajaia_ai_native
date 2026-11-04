@@ -389,7 +389,7 @@ https://github.com/gracyvermaa/ajaia_ai_native
 https://ajaia-ai-native.vercel.app
 
 **Google Drive Submission Folder:**  
-[ADD GOOGLE DRIVE FOLDER LINK]
+https://drive.google.com/file/d/1Vw41uDfUTEgP2Z5D6cN_aqKx0xdZ9q2R/view?usp=sharing
 
 The Google Drive folder should contain:
 
@@ -403,10 +403,10 @@ The Google Drive folder should contain:
 
 ## 15. Walkthrough Video
 
-**Video platform:** YouTube / Loom
+**Video platform:** Loom
 
 **Video URL:**  
-[ADD PUBLIC WALKTHROUGH VIDEO LINK AFTER RECORDING]
+https://www.loom.com/share/4db09485336f47109940db1ef8befbfd
 
 The walkthrough will demonstrate:
 
