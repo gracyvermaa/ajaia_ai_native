@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import type { JSONContent } from '@tiptap/react'
-import { ArrowLeft, Check, ChevronDown, CloudOff, LoaderCircle, Pencil, Printer, Share2, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, Check, ChevronDown, CloudOff, FileDown, LoaderCircle, Pencil, Printer, Share2, ShieldCheck, UsersRound } from 'lucide-react'
 import { getDocumentPeople, updateDocument } from '../lib/documents'
 import { validateDocumentTitle } from '../lib/documentUtils'
+import { downloadMarkdown } from '../lib/markdownExport'
 import { logSupabaseFailure } from '../lib/supabaseErrors'
 import type { DocumentPerson, DocumentRecord } from '../types'
 import { RichTextEditor } from './RichTextEditor'
@@ -220,6 +221,8 @@ export function EditorPage({ document, user, onBack, onShareUpdate }: Props) {
         </div>
         <div className="editor-top-actions">
           <div className={`save-indicator ${saveState}`} role="status">{saveState === 'saving' ? <><span className="tiny-spinner" /> Saving...</> : saveState === 'failed' ? <><CloudOff size={15} /> Save failed</> : <><Check size={15} /> Saved</>}</div>
+          <span className="local-presence" aria-label="Local presence: one session, you"><UsersRound size={14} /> 1 local session · You</span>
+          <button className="button button-secondary export-markdown-button" onClick={() => downloadMarkdown(title, content)}><FileDown size={16} /><span>Export as Markdown</span></button>
           <button className="button button-secondary export-pdf-button" onClick={() => window.print()}><Printer size={16} /><span>Export as PDF</span></button>
           <button className="button button-secondary share-button" onClick={() => setShareOpen(true)}><Share2 size={16} /><span>Share</span></button>
           <span className="avatar">{(user.email ?? 'A').slice(0, 1).toUpperCase()}</span>

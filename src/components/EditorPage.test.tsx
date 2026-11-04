@@ -6,6 +6,7 @@ import type { DocumentPerson, DocumentRecord } from '../types'
 import { EditorPage } from './EditorPage'
 
 const mocks = vi.hoisted(() => ({
+  downloadMarkdown: vi.fn(),
   getDocumentPeople: vi.fn(),
   updateDocument: vi.fn(),
 }))
@@ -13,6 +14,10 @@ const mocks = vi.hoisted(() => ({
 vi.mock('../lib/documents', () => ({
   getDocumentPeople: mocks.getDocumentPeople,
   updateDocument: mocks.updateDocument,
+}))
+
+vi.mock('../lib/markdownExport', () => ({
+  downloadMarkdown: mocks.downloadMarkdown,
 }))
 
 vi.mock('./RichTextEditor', () => ({
@@ -148,6 +153,16 @@ describe('EditorPage document title', () => {
     expect(print).toHaveBeenCalledOnce()
     expect(screen.getByRole('heading', { name: 'Untitled document' })).toHaveClass('print-document-title')
     print.mockRestore()
+  })
+
+  it('exports the current title and content as Markdown with a local-only presence indicator', async () => {
+    const user = userEvent.setup()
+    renderEditor()
+
+    await user.click(screen.getByRole('button', { name: 'Export as Markdown' }))
+
+    expect(mocks.downloadMarkdown).toHaveBeenCalledWith(documentRecord.title, documentRecord.content_json)
+    expect(screen.getByLabelText('Local presence: one session, you')).toHaveTextContent('1 local session · You')
   })
 
   it('lets an authorized editor rename but keeps viewer titles non-editable', async () => {
