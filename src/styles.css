@@ -199,7 +199,7 @@ a { color: inherit; }
 .toolbar-spacer { flex: 1; }
 .page-scroll { flex: 1; overflow: auto; padding: 0 20px 50px; }
 .editor-page { width: min(816px, 100%); min-height: 920px; margin: 0 auto; border: 1px solid #ebedf0; padding: 76px clamp(40px, 9vw, 100px) 90px; background: #fff; box-shadow: 0 3px 12px #18233a07; }
-.document-prose { min-height: 700px; outline: 0; color: #353c48; font-size: 14px; line-height: 1.85; }
+.document-prose { min-height: 700px; outline: 0; color: #353c48; font-size: 14px; line-height: 1.85; font-synthesis: style; }
 .document-prose:focus { outline: 0; }
 .document-prose p { margin: 0 0 13px; }
 .document-prose h1, .document-prose h2, .document-prose h3 { margin: 1.3em 0 .45em; color: #272e39; font-family: 'Manrope', sans-serif; font-weight: 700; line-height: 1.35; letter-spacing: -.035em; }
@@ -207,6 +207,8 @@ a { color: inherit; }
 .document-prose h2 { font-size: 22px; }
 .document-prose h3 { font-size: 17px; }
 .document-prose ul, .document-prose ol { margin: 0 0 14px; padding-left: 26px; }
+.document-prose ul { list-style-type: disc; }
+.document-prose ol { list-style-type: decimal; }
 .document-prose li { padding-left: 4px; }
 .document-prose blockquote { border-left: 3px solid #d8e0fa; margin: 18px 0; padding-left: 17px; color: #727c8d; }
 .document-prose hr { border: 0; border-top: 1px solid #e8eaf0; margin: 22px 0; }

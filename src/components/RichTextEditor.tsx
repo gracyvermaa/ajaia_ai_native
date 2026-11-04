@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import Underline from '@tiptap/extension-underline'
 import type { JSONContent } from '@tiptap/react'
 import { FormattingToolbar } from './FormattingToolbar'
 
@@ -13,7 +12,7 @@ type Props = {
 
 export function RichTextEditor({ content, editable, onChange }: Props) {
   const editor = useEditor({
-    extensions: [StarterKit, Underline],
+    extensions: [StarterKit],
     content,
     editable,
     onUpdate: ({ editor: currentEditor }) => onChange(currentEditor.getJSON()),
